@@ -90,17 +90,17 @@ new-structure
 
 Glavna razlika je da nova struktura eksplicitno razdvaja izvornu strukturu('main', 'androidTest') koncept od Gradle. Možete da dodate na primjer 'plaćeni' i 'besplatni' okus vaše aplikacije u 'src' koji će imati kod za plaćenu i besplatnu vašu aplikaciju.
 
-Having a top-level `app` is useful to distinguish your app from other library projects (e.g., `library-foobar`) that will be referenced in your app. The `settings.gradle` then keeps references to these library projects, which `app/build.gradle` can reference to.
+Imajući top-level 'app' je korisno razlikovati vašu aplikaciju od ostalih biblioteka (npr., `library-foobar`) koje su referencirane u vašem projektu.  `settings.gradle` sadži referencu na ove biblioteke u projekte,.
 
-### Gradle configuration
+### Gradle konfiguracije
 
-**General structure.** Follow [Google's guide on Gradle for Android](http://tools.android.com/tech-docs/new-build-system/user-guide)
+**Generalna struktura.** Pratite [Google's guide on Gradle for Android](http://tools.android.com/tech-docs/new-build-system/user-guide)
 
-**Small tasks.** Instead of (shell, Python, Perl, etc) scripts, you can make tasks in Gradle. Just follow [Gradle's documentation](http://www.gradle.org/docs/current/userguide/userguide_single.html#N10CBF) for more details.
+**Mali taskovi.** Umjesto (shell, Python, Perl, etc) skripti, možete praviti taskove u gradle-u. Pratite ovo uputsto [Gradle's documentation](http://www.gradle.org/docs/current/userguide/userguide_single.html#N10CBF) for more details.
 
-**Passwords.** In your app's `build.gradle` you will need to define the `signingConfigs` for the release build. Here is what you should avoid:
+**Šifre.** U vašoj aplikaciji `build.gradle` potrebno je da definišete `signingConfigs` za javnu verziju aplikacije. Sledece stvari treba izbjegavati:
 
-_Don't do this_. This would appear in the version control system.
+_Ne radite ovo_. Ovo se može pojavit iu sistemu za verzioniranje.
 
 ```groovy
 signingConfigs {
@@ -113,14 +113,14 @@ signingConfigs {
 }
 ```
 
-Instead, make a `gradle.properties` file which should _not_ be added to the version control system:
+Umjesto toga, napravite `gradle.properties` fajl koji _neće_ biti dodan u sistem za verzioniranje:
 
 ```
 KEYSTORE_PASSWORD=password123
 KEY_PASSWORD=password789
 ```
 
-That file is automatically imported by gradle, so you can use it in `build.gradle` as such:
+Taj fajl je automatski importovan, pa vi možete koristiti `build.gradle`:
 
 ```groovy
 signingConfigs {
@@ -138,7 +138,7 @@ signingConfigs {
 }
 ```
 
-**Prefer Maven dependency resolution instead of importing jar files.** If you explicitly include jar files in your project, they will be of some specific frozen version, such as `2.1.1`. Downloading jars and handling updates is cumbersome, this is a problem that Maven solves properly, and is also encouraged in Android Gradle builds. For example:
+**Preferirajte Maven dependency resolution instead of importing jar files.** If you explicitly include jar files in your project, they will be of some specific frozen version, such as `2.1.1`. Downloading jars and handling updates is cumbersome, this is a problem that Maven solves properly, and is also encouraged in Android Gradle builds. For example:
 
 ```groovy
 dependencies {
